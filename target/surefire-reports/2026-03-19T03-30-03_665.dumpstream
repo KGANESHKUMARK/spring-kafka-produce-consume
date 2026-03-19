@@ -1,0 +1,5 @@
+# Created at 2026-03-19T03:30:05.239
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Siddharitha\SIDDHARITHA TECHNOLOGIES PRIVATE LIMITED\Projects\Work\spring-kafka-produce-consume\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

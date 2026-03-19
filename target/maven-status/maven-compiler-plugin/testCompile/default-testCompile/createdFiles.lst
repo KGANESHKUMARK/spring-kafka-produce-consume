@@ -1,0 +1,8 @@
+com\example\kafkaavro\web\EventControllerValidationTest.class
+com\example\kafkaavro\unit\GenericRecordBuilderTest.class
+com\example\kafkaavro\integration\EventProducerIntegrationTest.class
+com\example\kafkaavro\unit\AvroTypeHandlerTest.class
+com\example\kafkaavro\unit\SafeFieldExtractorTest.class
+com\example\kafkaavro\util\TestSchemaFactory.class
+com\example\kafkaavro\integration\EventProducerIntegrationTest$TestSchemaRegistryConfig.class
+com\example\kafkaavro\web\EventControllerTest.class

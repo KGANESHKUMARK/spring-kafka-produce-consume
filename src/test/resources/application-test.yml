@@ -1,0 +1,34 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      security.protocol: PLAINTEXT
+    producer:
+      properties:
+        security.protocol: PLAINTEXT
+    consumer:
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        security.protocol: PLAINTEXT
+        spring.deserializer.key.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+        spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+        specific.avro.reader: false
+    listener:
+      auto-startup: false
+
+KAFKA_SCHEMA_REGISTRY_URL: http://localhost:8081
+KAFKA_SCHEMA_REGISTRY_USERNAME: test-user
+KAFKA_SCHEMA_REGISTRY_PASSWORD: test-pass
+KAFKA_TOPIC: test-topic
+KAFKA_CONSUMER_GROUP: test-group
+KAFKA_BOOTSTRAP_SERVERS: localhost:9092
+KAFKA_USERNAME: test
+KAFKA_PASSWORD: test
+
+kafka:
+  topic: test-topic
+
+app:
+  env-validation:
+    enabled: false
