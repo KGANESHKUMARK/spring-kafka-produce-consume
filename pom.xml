@@ -24,6 +24,7 @@
         <testcontainers.version>1.19.3</testcontainers.version>
         <springdoc.version>2.3.0</springdoc.version>
         <awaitility.version>4.2.0</awaitility.version>
+        <cucumber.version>7.15.0</cucumber.version>
     </properties>
 
     <dependencies>
@@ -50,6 +51,12 @@
             <groupId>io.confluent</groupId>
             <artifactId>kafka-schema-registry-client</artifactId>
             <version>${confluent.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -62,6 +69,35 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-core-jakarta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-annotations-jakarta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-models-jakarta</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core-jakarta</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models-jakarta</artifactId>
+            <version>2.2.20</version>
         </dependency>
 
         <dependency>
@@ -104,6 +140,31 @@
             <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- Cucumber BDD Testing -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -126,6 +187,29 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>
+                        -Xmx1024m 
+                        -XX:MaxMetaspaceSize=512m
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                    </argLine>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/CucumberTestRunner.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/EventProducerIntegrationTest.java</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <cucumber.junit-platform.naming-strategy>long</cucumber.junit-platform.naming-strategy>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

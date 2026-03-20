@@ -61,6 +61,7 @@ public class AvroTypeHandler {
             case DOUBLE  -> valueNode.asDouble();
             case BOOLEAN -> valueNode.asBoolean();
             case BYTES   -> ByteBuffer.wrap(valueNode.asText().getBytes(StandardCharsets.UTF_8));
+            case ENUM    -> new org.apache.avro.generic.GenericData.EnumSymbol(schema, valueNode.asText());
             case RECORD  -> genericRecordBuilder.build(schema, valueNode);
             case ARRAY   -> convertArray(fieldName, schema, valueNode);
             case MAP     -> convertMap(fieldName, schema, valueNode);
@@ -74,7 +75,12 @@ public class AvroTypeHandler {
         return switch (logicalType.getName()) {
             case "decimal" -> {
                 int scale = ((LogicalTypes.Decimal) logicalType).getScale();
-                BigDecimal bd = new BigDecimal(valueNode.asText()).setScale(scale, RoundingMode.HALF_UP);
+                BigDecimal bd;
+                if (valueNode.isNumber()) {
+                    bd = valueNode.decimalValue().setScale(scale, RoundingMode.HALF_UP);
+                } else {
+                    bd = new BigDecimal(valueNode.asText()).setScale(scale, RoundingMode.HALF_UP);
+                }
                 byte[] bytes = bd.unscaledValue().toByteArray();
                 yield ByteBuffer.wrap(bytes);
             }
@@ -86,9 +92,26 @@ public class AvroTypeHandler {
                 Instant instant = Instant.parse(valueNode.asText());
                 yield instant.toEpochMilli();
             }
+            case "timestamp-micros" -> {
+                if (valueNode.isNumber()) {
+                    yield valueNode.asLong();
+                }
+                Instant instant = Instant.parse(valueNode.asText());
+                yield instant.toEpochMilli() * 1000;
+            }
             case "time-millis" -> {
+                if (valueNode.isNumber()) {
+                    yield valueNode.asInt();
+                }
                 LocalTime time = LocalTime.parse(valueNode.asText());
                 yield (int) (time.toNanoOfDay() / 1_000_000);
+            }
+            case "time-micros" -> {
+                if (valueNode.isNumber()) {
+                    yield valueNode.asLong();
+                }
+                LocalTime time = LocalTime.parse(valueNode.asText());
+                yield time.toNanoOfDay() / 1000;
             }
             default -> throw new DataConversionException(fieldName,
                 logicalType.getName(), valueNode, null);

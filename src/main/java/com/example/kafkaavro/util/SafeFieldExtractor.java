@@ -50,7 +50,23 @@ public class SafeFieldExtractor {
     public LocalTime getTime(String fieldName) {
         Object raw = record.get(fieldName);
         if (raw == null) return null;
-        return LocalTime.ofNanoOfDay((long) ((Number) raw).intValue() * 1_000_000L);
+        
+        Schema fieldSchema = resolveSchema(record.getSchema().getField(fieldName).schema());
+        String logicalType = fieldSchema.getLogicalType() != null 
+            ? fieldSchema.getLogicalType().getName() 
+            : null;
+        
+        long value = ((Number) raw).longValue();
+        
+        if ("time-micros".equals(logicalType)) {
+            // time-micros: microseconds since midnight
+            long nanos = value * 1000L;
+            return LocalTime.ofNanoOfDay(nanos);
+        } else {
+            // time-millis (default): milliseconds since midnight
+            long nanos = value * 1_000_000L;
+            return LocalTime.ofNanoOfDay(nanos);
+        }
     }
 
     public SafeFieldExtractor getNested(String fieldName) {

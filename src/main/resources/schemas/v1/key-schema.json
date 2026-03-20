@@ -1,0 +1,1 @@
+{"schema": "{\"type\":\"record\",\"name\":\"OrderKey\",\"fields\":[{\"name\":\"orderId\",\"type\":\"string\"}]}"}

@@ -1,0 +1,25 @@
+{
+  "contractDataKey": {
+    "orderId": "ORD-12345",
+    "customerId": "CUST-67890"
+  },
+  "payload": {
+    "active": true,
+    "amount": "1234.56",
+    "tradeDate": "2026-03-20",
+    "createdAt": "2026-03-20T01:45:00.000Z",
+    "executionTime": 34215123456,
+    "tags": ["urgent", "high-value", "verified"],
+    "metadata": {
+      "source": "web-portal",
+      "version": "2.0",
+      "region": "APAC"
+    },
+    "nestedRecord": {
+      "someField": "nested-value-123",
+      "count": 42
+    },
+    "status": "CONFIRMED",
+    "notes": "This is a comprehensive test with all field types"
+  }
+}

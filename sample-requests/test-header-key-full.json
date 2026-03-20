@@ -1,0 +1,20 @@
+{
+  "active": true,
+  "amount": 1234.56,
+  "tradeDate": "2026-03-20",
+  "createdAt": "2026-03-20T14:45:00.000Z",
+  "executionTime": 34215123456,
+  "tags": ["header-test", "production-ready", "verified"],
+  "metadata": {
+    "source": "swagger-ui",
+    "version": "2.0",
+    "region": "APAC",
+    "testType": "header-based-key"
+  },
+  "nestedRecord": {
+    "someField": "header-key-test-123",
+    "count": 99
+  },
+  "status": "CONFIRMED",
+  "notes": "Testing new header-based key API with full Avro schema"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "OrderKey",
+  "namespace": "com.example.kafkaavro.schema",
+  "doc": "Key schema for test-topic with comprehensive fields",
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "string",
+      "doc": "Unique order identifier"
+    },
+    {
+      "name": "customerId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Optional customer identifier"
+    }
+  ]
+}
