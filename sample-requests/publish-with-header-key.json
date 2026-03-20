@@ -1,0 +1,19 @@
+{
+  "active": true,
+  "amount": 1234.56,
+  "tradeDate": "2026-03-20",
+  "createdAt": "2026-03-20T01:45:00.000Z",
+  "executionTime": 34215123456,
+  "tags": ["urgent", "high-value", "verified"],
+  "metadata": {
+    "source": "web-portal",
+    "version": "2.0",
+    "region": "APAC"
+  },
+  "nestedRecord": {
+    "someField": "nested-value-123",
+    "count": 42
+  },
+  "status": "CONFIRMED",
+  "notes": "This is a test with header-based key"
+}

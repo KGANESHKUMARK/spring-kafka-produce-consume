@@ -3,15 +3,7 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
 
     properties:
-      security.protocol: SASL_PLAINTEXT
-      sasl.mechanism: PLAIN
-      sasl.jaas.config: >
-        org.apache.kafka.common.security.plain.PlainLoginModule required
-        username="${KAFKA_USERNAME}"
-        password="${KAFKA_PASSWORD}";
       schema.registry.url: ${KAFKA_SCHEMA_REGISTRY_URL}
-      basic.auth.credentials.source: USER_INFO
-      basic.auth.user.info: ${KAFKA_SCHEMA_REGISTRY_USERNAME}:${KAFKA_SCHEMA_REGISTRY_PASSWORD}
       auto.register.schemas: false
       use.latest.version: true
 
@@ -24,8 +16,6 @@ spring:
         enable.idempotence: true
         max.in.flight.requests.per.connection: 5
         schema.registry.url: ${KAFKA_SCHEMA_REGISTRY_URL}
-        basic.auth.credentials.source: USER_INFO
-        basic.auth.user.info: ${KAFKA_SCHEMA_REGISTRY_USERNAME}:${KAFKA_SCHEMA_REGISTRY_PASSWORD}
         auto.register.schemas: false
         use.latest.version: true
 
@@ -39,8 +29,6 @@ spring:
         spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
         specific.avro.reader: false
         schema.registry.url: ${KAFKA_SCHEMA_REGISTRY_URL}
-        basic.auth.credentials.source: USER_INFO
-        basic.auth.user.info: ${KAFKA_SCHEMA_REGISTRY_USERNAME}:${KAFKA_SCHEMA_REGISTRY_PASSWORD}
         auto.register.schemas: false
         use.latest.version: true
 

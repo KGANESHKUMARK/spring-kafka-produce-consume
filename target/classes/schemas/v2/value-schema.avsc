@@ -1,0 +1,104 @@
+{
+  "type": "record",
+  "name": "OrderValue",
+  "namespace": "com.example.kafkaavro.schema",
+  "doc": "Value schema for test-topic with comprehensive types including logical types, nested records, arrays, and maps",
+  "fields": [
+    {
+      "name": "active",
+      "type": "boolean",
+      "doc": "Order active status"
+    },
+    {
+      "name": "amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 10,
+        "scale": 2
+      },
+      "doc": "Order amount as decimal with 2 decimal places"
+    },
+    {
+      "name": "tradeDate",
+      "type": {
+        "type": "int",
+        "logicalType": "date"
+      },
+      "doc": "Trade date as days since Unix epoch"
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Creation timestamp in milliseconds since Unix epoch"
+    },
+    {
+      "name": "executionTime",
+      "type": ["null", {
+        "type": "long",
+        "logicalType": "time-micros"
+      }],
+      "default": null,
+      "doc": "Optional execution time in microseconds since midnight"
+    },
+    {
+      "name": "tags",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "Array of string tags"
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Map of metadata key-value pairs"
+    },
+    {
+      "name": "nestedRecord",
+      "type": ["null", {
+        "type": "record",
+        "name": "NestedData",
+        "fields": [
+          {
+            "name": "someField",
+            "type": "string",
+            "doc": "Example nested field"
+          },
+          {
+            "name": "count",
+            "type": "int",
+            "default": 0,
+            "doc": "Example nested integer"
+          }
+        ]
+      }],
+      "default": null,
+      "doc": "Optional nested record"
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatus",
+        "symbols": ["PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"]
+      },
+      "default": "PENDING",
+      "doc": "Order status enum"
+    },
+    {
+      "name": "notes",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Optional notes"
+    }
+  ]
+}

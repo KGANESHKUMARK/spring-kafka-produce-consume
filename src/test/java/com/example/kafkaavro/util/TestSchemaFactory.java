@@ -75,7 +75,7 @@ public class TestSchemaFactory {
         record.put("amount", ByteBuffer.wrap(amountBytes));
         record.put("tradeDate", (int) LocalDate.of(2026, 3, 19).toEpochDay());
         record.put("createdAt", Instant.parse("2026-03-19T10:00:00Z").toEpochMilli());
-        record.put("timeField", (int) (LocalTime.of(10, 0).toNanoOfDay() / 1_000_000));
+        record.put("timeField", (int) (LocalTime.of(10, 0).toSecondOfDay() * 1000));
         record.put("active", true);
         record.put("tags", List.of("urgent", "retail"));
         record.put("metadata", metadata);

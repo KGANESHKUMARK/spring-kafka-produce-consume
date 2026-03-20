@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.kafkaavro.unit.AvroTypeHandlerTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.163 s -- in com.example.kafkaavro.unit.AvroTypeHandlerTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.183 s -- in com.example.kafkaavro.unit.AvroTypeHandlerTest
